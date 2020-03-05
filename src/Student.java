@@ -1,16 +1,28 @@
+
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
+import static org.testng.Assert.assertEquals;
 public class Student {
-  int rating;
-  private String name;
+  private int rating = 0;
+  private String name = null;
+  public static int count = 0;
+  private static int totalRating = 0;
 
-  // TODO implement Student class according to the instructions provided in the README.md file
-
-  public Student(String name) {
-    //TODO initialize name
+  public Student(String name, int rating) {
+    this.name = name;
+    this.rating = rating;
+    count++;
+    totalRating += rating;
   }
 
-  public static double getAvgRating() {
-    // TODO return average rating of all students
-    return 0;
+  public Student(String name) {
+    this.name = name;
+    count++;
+  }
+
+  public Student() {
+    count++;
   }
 
   public String getName() {
@@ -18,7 +30,7 @@ public class Student {
   }
 
   public void setName(String name) {
-    // TODO set student's name
+    this.name = name;
   }
 
   public int getRating() {
@@ -26,25 +38,48 @@ public class Student {
   }
 
   public void setRating(int rating) {
-    // TODO initialize rating;
+    this.rating = rating;
+    totalRating += rating;
   }
 
   public boolean betterStudent(Student student) {
-    // TODO return the result of comparing this.student's rating with the student's rating
-    return false;
+    return rating > student.rating;
   }
 
   public void changeRating(int rating) {
-    // TODO change this student's rating and average rating of all students
+    totalRating -= this.rating;
+    setRating(rating);
   }
 
   public static void removeStudent(Student student) {
-    // TODO remove student
+    count--;
+    totalRating -= student.rating;
   }
 
   @Override
   public String toString() {
-    // TODO return String with name and rating of this student
-    return "";
+    return this.name + " " + this.rating;
+  }
+
+  public static double getAvgRating() {
+    double sumRating = totalRating;
+    double sumStudents = count;
+    double avg = sumRating / sumStudents;
+    if (count > 0) {
+      return avg;
+    } else {
+      return 0.0;
+    }
+  }
+
+  public static void main(String[] args) {
+    Student student1 = new Student ("Petro", 10);
+    Student student2 = new Student ("Masha", 10);
+    Student student3 = new Student ("Jhon", 10);
+    System.out.println(getAvgRating());
+    student1.changeRating(40);
+    System.out.println(getAvgRating());
+
+
   }
 }

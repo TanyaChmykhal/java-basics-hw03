@@ -1,4 +1,5 @@
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import static org.testng.Assert.*;
 public class StudentTest {
   List<Student> students = new ArrayList<>();
 
-  @Test
+  @AfterTest
   public void testGetAvgRating() {
 
     assertEquals(Student.getAvgRating(), 0.0d, "Average rating is wrong");
